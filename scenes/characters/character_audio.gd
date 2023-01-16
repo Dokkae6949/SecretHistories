@@ -1,0 +1,209 @@
+extends AudioStreamPlayer3D
+class_name CharacterAudio
+
+
+var _footstep_sounds : Array = []
+var _landing_sounds : Array = []
+var _clamber_sounds : Dictionary = {
+	"in" : [],
+	"out" : []
+}
+
+# Speech
+var character_voice = null   # "res:// path to folder structure of this voice pack?"
+
+var _idle_sounds : Array = []
+var _alert_sounds : Array = []
+var _detection_sounds : Array = []
+var _ambush_sounds : Array = []
+var _chase_sounds : Array = []
+var _fight_sounds : Array = []
+var _reload_sounds : Array = []
+var _flee_sounds : Array = []
+var _dialog_q_sounds : Array = []
+var _dialog_a_sounds : Array = []
+var _dialog_sequence_sounds : Array = []
+var _surprised_sounds : Array = []
+var _fire_sounds : Array = []
+var _snake_sounds : Array = []
+var _bomb_sounds : Array = []
+
+var _current_sound_dir : String = ""
+
+onready var speech_audio = $Speech
+onready var manipulation_audio = $Manipulation
+onready var movement_audio = $Movement
+
+
+func load_sounds(sound_dir, type : int) -> void:
+	if sound_dir == "":
+		return
+
+	if _current_sound_dir == sound_dir:
+		return
+
+	_current_sound_dir = sound_dir
+
+	if sound_dir.ends_with("/"):
+		sound_dir.erase(sound_dir.length() - 1, 1)
+
+	if not "res://" in sound_dir:
+		sound_dir = "res://" + sound_dir
+
+	var snd_dir = Directory.new()
+	snd_dir.open(sound_dir)
+	snd_dir.list_dir_begin(true)
+
+	var sound = snd_dir.get_next()
+	while sound != "":
+		if not sound.ends_with(".import") and sound.ends_with(".wav"):
+			if type == 0:
+				_footstep_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 1:
+				if "in" in sound:
+					_clamber_sounds["in"].append(load(sound_dir + "/" + sound))
+				elif "out" in sound:
+					_clamber_sounds["out"].append(load(sound_dir + "/" + sound))
+			elif type == 2:
+				_landing_sounds.append(load(sound_dir + "/" + sound))
+		sound = snd_dir.get_next()
+
+
+# Speech
+
+# once per character, randomly choose one of the appropriate voices for this character
+func choose_voice():
+	pass
+
+
+# randomly choose one of the lines appropriate for the signal recieved, maybe not needed, can do functions below directly
+#func select_line(event):
+#	pass
+
+
+
+# func _different_signals_from_behavior_tree():   # basically just change below functions to signal recipients
+#	select_line(whatever_type_of_event)
+#	play_speech_sound()
+
+
+func play_idle_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_alert_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_detection_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_ambush_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_chase_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_fight_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_reload_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_flee_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_dialog_q_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_dialog_a_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_dialog_sequence_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_surprised_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_fire_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_snake_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+func play_bomb_sound():
+	_landing_sounds.shuffle()
+	speech_audio.stream = _landing_sounds.front()
+	speech_audio.play()
+
+
+# Movement
+
+func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0):
+	movement_audio.unit_db = rate
+	movement_audio.pitch_scale = pitch
+	if _footstep_sounds.size() > 0:
+		_footstep_sounds.shuffle()
+		movement_audio.stream = _footstep_sounds.front()
+		movement_audio.play()
+
+
+func play_land_sound():
+	_landing_sounds.shuffle()
+	movement_audio.stream = _landing_sounds.front()
+	movement_audio.play()
+
+
+func play_clamber_sound(clamber_in : bool) -> void:
+	if clamber_in:
+		if not movement_audio.stream in _clamber_sounds["in"]:
+				_clamber_sounds["in"].shuffle()
+				movement_audio.stream = _clamber_sounds["in"].front()
+				movement_audio.play()
+	else:
+		if !playing:
+				_clamber_sounds["out"].shuffle()
+				stream = _clamber_sounds["out"].front()
+				movement_audio.play()
+
+

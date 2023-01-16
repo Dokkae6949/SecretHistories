@@ -1,5 +1,5 @@
-class_name CharacterState
 extends Reference
+class_name CharacterState
 
 
 var move_direction : Vector3 = Vector3.ZERO setget set_move_direction
