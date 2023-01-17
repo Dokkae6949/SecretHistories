@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/the_next_payday2.wav-834f6d9575a74b9ff8cc591f1f0be68d.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q_and_a/q/statements/the_next_payday2.wav"
+dest_files=[ "res://.import/the_next_payday2.wav-834f6d9575a74b9ff8cc591f1f0be68d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

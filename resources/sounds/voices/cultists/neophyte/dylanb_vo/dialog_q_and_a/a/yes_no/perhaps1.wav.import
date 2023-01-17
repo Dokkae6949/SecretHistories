@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/perhaps1.wav-49c8adf6e38939a37bed3a37f2f7c0a4.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q_and_a/a/yes_no/perhaps1.wav"
+dest_files=[ "res://.import/perhaps1.wav-49c8adf6e38939a37bed3a37f2f7c0a4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -35,6 +35,10 @@ onready var manipulation_audio = $Manipulation
 onready var movement_audio = $Movement
 
 
+func _ready():
+	choose_voice()
+
+
 func load_sounds(sound_dir, type : int) -> void:
 	if sound_dir == "":
 		return
@@ -81,98 +85,100 @@ func choose_voice():
 #	pass
 
 
-
 # func _different_signals_from_behavior_tree():   # basically just change below functions to signal recipients
 #	select_line(whatever_type_of_event)
 #	play_speech_sound()
 
 
 func play_idle_sound():
-	_landing_sounds.shuffle()
+	_idle_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
 func play_alert_sound():
-	_landing_sounds.shuffle()
+	_alert_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
 func play_detection_sound():
-	_landing_sounds.shuffle()
+	_detection_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
 func play_ambush_sound():
-	_landing_sounds.shuffle()
+	_ambush_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
 func play_chase_sound():
-	_landing_sounds.shuffle()
+	_chase_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
 func play_fight_sound():
-	_landing_sounds.shuffle()
+	_fight_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
 func play_reload_sound():
-	_landing_sounds.shuffle()
+	_reload_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
 func play_flee_sound():
-	_landing_sounds.shuffle()
+	_flee_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
+# needs logic for categories of question lines
 func play_dialog_q_sound():
-	_landing_sounds.shuffle()
+	_dialog_q_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
+# needs logic for categories of response lines
 func play_dialog_a_sound():
-	_landing_sounds.shuffle()
+	_dialog_a_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
+# needs logic for each sequence
 func play_dialog_sequence_sound():
-	_landing_sounds.shuffle()
+	_dialog_sequence_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
 func play_surprised_sound():
-	_landing_sounds.shuffle()
+	_surprised_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
 func play_fire_sound():
-	_landing_sounds.shuffle()
+	_fire_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
 func play_snake_sound():
-	_landing_sounds.shuffle()
+	_snake_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
 
 func play_bomb_sound():
-	_landing_sounds.shuffle()
+	_bomb_sounds.shuffle()
 	speech_audio.stream = _landing_sounds.front()
 	speech_audio.play()
 
@@ -205,5 +211,3 @@ func play_clamber_sound(clamber_in : bool) -> void:
 				_clamber_sounds["out"].shuffle()
 				stream = _clamber_sounds["out"].front()
 				movement_audio.play()
-
-

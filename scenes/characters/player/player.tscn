@@ -16,13 +16,14 @@
 [ext_resource path="res://resources/art/health/health.png" type="Texture" id=14]
 [ext_resource path="res://scenes/characters/player/player_camera.gd" type="Script" id=15]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
-[ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
+[ext_resource path="res://resources/sounds/player/death_sound.wav" type="AudioStream" id=17]
 [ext_resource path="res://scenes/characters/player/light_detection.tscn" type="PackedScene" id=18]
 [ext_resource path="res://resources/art/flame-xxl.png" type="Texture" id=19]
 [ext_resource path="res://resources/art/player ui/normal.png" type="Texture" id=20]
 [ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=21]
 [ext_resource path="res://scenes/characters/player/effect_origin.gd" type="Script" id=22]
 [ext_resource path="res://scenes/characters/player/GridEffect.material" type="Material" id=23]
+
 
 
 
