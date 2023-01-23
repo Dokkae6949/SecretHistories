@@ -12,6 +12,9 @@ export(GlobalConsts.ItemSize) var item_size : int = GlobalConsts.ItemSize.SIZE_M
 export var item_name : String = "Equipment"
 var is_in_belt = false
 
+onready var sound_equip = $Sounds/Equip
+onready var sound_unequip = $Sounds/Unequip
+
 
 # Override this function for (Left-Click and E, typically) use actions
 func _use_primary():

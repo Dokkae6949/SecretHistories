@@ -622,7 +622,6 @@ func handle_inventory(delta : float):
 				owner.change_equipment_in(true)
 
 	# Offhand slot selection
-
 	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false:
 		var start_slot = inv.current_offhand_slot
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
@@ -649,23 +648,22 @@ func handle_inventory(delta : float):
 	if Input.is_action_just_pressed("hotbar_11"):
 		if inv.current_offhand_slot != 10:
 			inv.current_offhand_slot = 10
+	
 	## Item Usage
 	if Input.is_action_just_pressed("main_use_primary"):
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_primary()
 			throw_state = ThrowState.IDLE
-
+	
 	if Input.is_action_just_pressed("main_use_secondary"):
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_secondary()
 			throw_state = ThrowState.IDLE
-
+	
 	if Input.is_action_just_pressed("reload"):
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_reload()
 			throw_state = ThrowState.IDLE
-#			if inv.get_mainhand_item() is ShotgunItem:
-#				print(inv.get_mainhand_item())
 
 	if Input.is_action_just_pressed("offhand_use"):
 		if inv.get_offhand_item():

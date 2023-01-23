@@ -407,7 +407,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 
 	_handle_player_sound_emission()
 
-	if velocity.length() > 0.1 and grounded and not _audio_player.playing and is_to_move:
+	if velocity.length() > 0.1 and grounded and not _audio_player.movement_audio.playing and is_to_move:
 		if is_crouching:
 			_audio_player.play_footstep_sound(-10.0, 0.7)
 		elif do_sprint and is_moving_forward:

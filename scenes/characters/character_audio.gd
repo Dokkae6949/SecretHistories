@@ -1,4 +1,4 @@
-extends AudioStreamPlayer3D
+extends Spatial
 class_name CharacterAudio
 
 
@@ -207,7 +207,7 @@ func play_clamber_sound(clamber_in : bool) -> void:
 				movement_audio.stream = _clamber_sounds["in"].front()
 				movement_audio.play()
 	else:
-		if !playing:
+		if !movement_audio.playing:
 				_clamber_sounds["out"].shuffle()
-				stream = _clamber_sounds["out"].front()
+				movement_audio.stream = _clamber_sounds["out"].front()
 				movement_audio.play()

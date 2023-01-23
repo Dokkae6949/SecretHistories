@@ -44,10 +44,9 @@ func _process(delta):
 	if $PlayerController.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
 
+
 func drop_consumable(object):
 	$PlayerController.throw_consumable()
-
-
 
 
 func grab_indicator():

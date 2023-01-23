@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/651515__1bob__grab-item.wav-5b05b96eda8022fc70d1664efb62a801.sample"
+
+[deps]
+
+source_file="res://resources/sounds/inventory/651515__1bob__grab-item.wav"
+dest_files=[ "res://.import/651515__1bob__grab-item.wav-5b05b96eda8022fc70d1664efb62a801.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

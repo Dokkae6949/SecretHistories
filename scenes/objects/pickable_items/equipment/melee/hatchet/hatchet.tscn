@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/melee/wider_object/squish_hit/411122__vdovitsky__sword-hits-the-body.wav" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=8]
+[ext_resource path="res://resources/sounds/inventory/249815__spookymodem__item-received.wav" type="AudioStream" id=9]
+[ext_resource path="res://resources/sounds/inventory/651515__1bob__grab-item.wav" type="AudioStream" id=10]
 
 [sub_resource type="CylinderShape" id=3]
 height = 0.181495
@@ -106,9 +108,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.105544, -0.0127318 )
 
 [node name="Sounds" type="Spatial" parent="."]
 
-[node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Equip" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource( 10 )
 
-[node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Unequip" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource( 9 )
 
 [node name="Thrust" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 5 )

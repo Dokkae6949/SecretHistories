@@ -128,7 +128,6 @@ func add_item(item : PickableItem) -> bool:
 				elif current_offhand_slot == slot and not bulky_equipment:
 					equip_offhand_item()
 				
-
 	return true
 
 
@@ -170,6 +169,8 @@ func equip_mainhand_item():
 			unequip_offhand_item()
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_mainhand_equipment = item
+		if item.sound_equip != null:
+			item.sound_equip.play()
 		item.transform = item.get_hold_transform()
 		if item.is_in_belt == true:
 			item.get_parent().remove_child(item)
@@ -181,18 +182,18 @@ func equip_mainhand_item():
 
 func unequip_mainhand_item():
 	if current_mainhand_equipment == null: # No item equipped
-		
 		return
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
+	if item.sound_unequip != null:
+		item.sound_unequip.play()
 #	item.get_parent().remove_child(item)
 #	emit_signal("UpdateHud")
 	if item.can_attach == true:
 		pass
 	else:
 		item.get_parent().remove_child(item)
-	
 
 
 func equip_bulky_item(item : EquipmentItem):
@@ -236,6 +237,8 @@ func equip_offhand_item():
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_offhand_equipment = item
 		# Waits for the item to exit the tree, if necessary
+		if item.sound_equip != null:
+			item.sound_equip.play()
 		item.transform = item.get_hold_transform()
 		if item.is_in_belt == true:
 			item.get_parent().remove_child(item)
@@ -252,6 +255,8 @@ func unequip_offhand_item():
 	# If the item was just equipped, waits for it to enter the tree before removing
 	var item = current_offhand_equipment
 	current_offhand_equipment = null
+	if item.sound_unequip != null:
+		item.sound_unequip.play()
 	if item.can_attach == true:
 		pass
 	else:
@@ -281,7 +286,6 @@ func has_bulky_item() -> bool:
 
 func drop_offhand_item():
 	drop_hotbar_slot(current_offhand_slot)
-	pass
 
 
 func drop_hotbar_slot(slot : int) -> Node:
@@ -347,10 +351,9 @@ func set_offhand_slot(value : int):
 func _on_Player_character_died():
 	emit_signal("PlayerDead")
 
+
 func attach_to_belt(item):
 	if item.get_parent() != owner.belt_position :
 		item.get_parent().remove_child(item)
 		owner.belt_position.add_child(item)
 		$"%Additional_animations".play("Belt_Equip")
-
-
