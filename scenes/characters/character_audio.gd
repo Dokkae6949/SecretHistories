@@ -10,7 +10,7 @@ var _clamber_sounds : Dictionary = {
 }
 
 # Speech
-var character_voice = null   # "res:// path to folder structure of this voice pack?"
+export var character_voice_path : String = "res://resources/sounds/voices/cultists/neophyte/"   # "res:// path to folder structure of this voice pack?"
 
 var _idle_sounds : Array = []
 var _alert_sounds : Array = []
@@ -37,6 +37,7 @@ onready var movement_audio = $Movement
 
 func _ready():
 	choose_voice()
+	connect("speak_idle", self, "play_idle_sound")
 
 
 func load_sounds(sound_dir, type : int) -> void:
@@ -91,95 +92,96 @@ func choose_voice():
 
 
 func play_idle_sound():
-	_idle_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
-	speech_audio.play()
+	print("play idle speech")
+#	_idle_sounds.shuffle()
+#	speech_audio.stream = _idle_sounds.front()
+#	speech_audio.play()
 
 
 func play_alert_sound():
 	_alert_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _alert_sounds.front()
 	speech_audio.play()
 
 
 func play_detection_sound():
 	_detection_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _detection_sounds.front()
 	speech_audio.play()
 
 
 func play_ambush_sound():
 	_ambush_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _ambush_sounds.front()
 	speech_audio.play()
 
 
 func play_chase_sound():
 	_chase_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _chase_sounds.front()
 	speech_audio.play()
 
 
 func play_fight_sound():
 	_fight_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _fight_sounds.front()
 	speech_audio.play()
 
 
 func play_reload_sound():
 	_reload_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _reload_sounds.front()
 	speech_audio.play()
 
 
 func play_flee_sound():
 	_flee_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _flee_sounds.front()
 	speech_audio.play()
 
 
 # needs logic for categories of question lines
 func play_dialog_q_sound():
 	_dialog_q_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _dialog_q_sounds.front()
 	speech_audio.play()
 
 
 # needs logic for categories of response lines
 func play_dialog_a_sound():
 	_dialog_a_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _dialog_a_sounds.front()
 	speech_audio.play()
 
 
 # needs logic for each sequence
 func play_dialog_sequence_sound():
 	_dialog_sequence_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _dialog_sequence_sounds.front()
 	speech_audio.play()
 
 
 func play_surprised_sound():
 	_surprised_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _surprised_sounds.front()
 	speech_audio.play()
 
 
 func play_fire_sound():
 	_fire_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _fire_sounds.front()
 	speech_audio.play()
 
 
 func play_snake_sound():
 	_snake_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _snake_sounds.front()
 	speech_audio.play()
 
 
 func play_bomb_sound():
 	_bomb_sounds.shuffle()
-	speech_audio.stream = _landing_sounds.front()
+	speech_audio.stream = _bomb_sounds.front()
 	speech_audio.play()
 
 

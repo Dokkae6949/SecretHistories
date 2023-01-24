@@ -750,6 +750,10 @@ func handle_inventory(delta : float):
 			elif interaction_target is Interactable:
 				interaction_target.interact(owner)
 
+	if Input.is_action_just_released("test_feature"):
+		emit_signal("speak_idle")
+		print("emitted speak idle signal")
+
 
 #	if Input.is_action_pressed("throw") and throw_state:
 #		throw_press_length += delta
@@ -775,7 +779,7 @@ func kick():
 			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
 
 func drop_grabbable():
-	#when the drop button or keys are pressed , grabable objects are released
+	#when the drop button or keys are pressed, grabable objects are released
 	if Input.is_action_just_pressed("main_throw")  or   Input.is_action_just_pressed("offhand_throw") and is_grabbing == true :
 		wants_to_drop = true
 		if grab_object != null :

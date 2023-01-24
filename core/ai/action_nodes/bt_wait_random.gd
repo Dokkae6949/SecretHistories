@@ -2,6 +2,8 @@ class_name BT_Wait_Random
 extends BT_Node
 
 
+signal speak_idle()
+
 export var max_time : float = 2.0
 export var min_time : float = 1.0
 
@@ -11,6 +13,9 @@ var reset : bool = false
 
 
 func idle():
+	var speech_chance = randf()
+	if (speech_chance > 0.90):
+		emit_signal("speak_idle")
 	if active:
 		active = false
 		time_left -= get_physics_process_delta_time()
@@ -36,9 +41,3 @@ func reset_timer():
 
 func _ready():
 	get_tree().connect("physics_frame", self, "idle")
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
