@@ -3,6 +3,9 @@ extends Node
 
 signal is_moving(is_player_moving)
 
+# test 
+signal speak_idle
+
 var is_player_moving : bool = false
 
 onready var character = get_parent()
@@ -752,7 +755,6 @@ func handle_inventory(delta : float):
 
 	if Input.is_action_just_released("test_feature"):
 		emit_signal("speak_idle")
-		print("emitted speak idle signal")
 
 
 #	if Input.is_action_pressed("throw") and throw_state:

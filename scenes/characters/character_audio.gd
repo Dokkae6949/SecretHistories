@@ -37,7 +37,9 @@ onready var movement_audio = $Movement
 
 func _ready():
 	choose_voice()
-	connect("speak_idle", self, "play_idle_sound")
+	
+	# this is a test, normally needs to come from like BT_wait_random or something
+	$"../PlayerController".connect("speak_idle", self, "play_idle_sound")
 
 
 func load_sounds(sound_dir, type : int) -> void:
