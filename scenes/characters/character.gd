@@ -189,12 +189,27 @@ func _ready():
 	_clamber_m = ClamberManager.new(self, _camera, get_world())
 	equipment_orig_pos = mainhand_equipment_root.transform.origin.y
 	
+	# Movement audio
 	_audio_player.load_sounds("resources/sounds/player/sfx/footsteps", 0)
 	_audio_player.load_sounds("resources/sounds/player/sfx/breathe", 1)
 	_audio_player.load_sounds("resources/sounds/player/sfx/landing", 2)
 	
+	# Speech audio - these should eventually be moved to each enemy's script and the paths adjusted to the correct voice
 	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/idle", 3)
-	# load other speech sounds here
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/alert", 4)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/detection", 5)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush", 6)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/chase", 7)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fight", 8)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/reload", 9)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/flee", 10)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q", 11)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a", 12)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence", 12)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/surprised", 14)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fire", 15)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/snake", 16)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/bomb", 17)
 	
 #	active_mode.set_deferred("is_active", true)
 

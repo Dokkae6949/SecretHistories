@@ -74,9 +74,38 @@ func load_sounds(sound_dir, type : int) -> void:
 			elif type == 2:
 				_landing_sounds.append(load(sound_dir + "/" + sound))
 			
-			#speech
-			elif type ==3:
+			# Speech
+			elif type == 3:
 				_idle_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 4:
+				_alert_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 5:
+				_detection_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 6:
+				_ambush_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 7:
+				_chase_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 8:
+				_fight_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 9:
+				_reload_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 10:
+				_flee_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 11:
+				_dialog_q_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 12:
+				_dialog_a_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 13:
+				_dialog_sequence_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 14:
+				_surprised_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 15:
+				_fire_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 16:
+				_snake_sounds.append(load(sound_dir + "/" + sound))
+			elif type == 17:
+				_bomb_sounds.append(load(sound_dir + "/" + sound))
+				
 		sound = snd_dir.get_next()
 
 
