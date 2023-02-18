@@ -10,7 +10,7 @@ var _clamber_sounds : Dictionary = {
 }
 
 # Speech
-export var character_voice_path : String = "res://resources/sounds/voices/cultists/neophyte/"   # "res:// path to folder structure of this voice pack?"
+export var character_voice_path : String = "res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"   # "res:// path to folder structure of this voice pack?"
 
 var _idle_sounds : Array = []
 var _alert_sounds : Array = []
@@ -73,6 +73,10 @@ func load_sounds(sound_dir, type : int) -> void:
 					_clamber_sounds["out"].append(load(sound_dir + "/" + sound))
 			elif type == 2:
 				_landing_sounds.append(load(sound_dir + "/" + sound))
+			
+			#speech
+			elif type ==3:
+				_idle_sounds.append(load(sound_dir + "/" + sound))
 		sound = snd_dir.get_next()
 
 
@@ -94,10 +98,10 @@ func choose_voice():
 
 
 func play_idle_sound():
-	print("play idle speech")
-#	_idle_sounds.shuffle()
-#	speech_audio.stream = _idle_sounds.front()
-#	speech_audio.play()
+#	print("play idle speech")
+	_idle_sounds.shuffle()
+	speech_audio.stream = _idle_sounds.front()
+	speech_audio.play()
 
 
 func play_alert_sound():

@@ -188,9 +188,14 @@ func _ready():
 
 	_clamber_m = ClamberManager.new(self, _camera, get_world())
 	equipment_orig_pos = mainhand_equipment_root.transform.origin.y
+	
 	_audio_player.load_sounds("resources/sounds/player/sfx/footsteps", 0)
 	_audio_player.load_sounds("resources/sounds/player/sfx/breathe", 1)
 	_audio_player.load_sounds("resources/sounds/player/sfx/landing", 2)
+	
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/idle", 3)
+	# load other speech sounds here
+	
 #	active_mode.set_deferred("is_active", true)
 
 
@@ -274,6 +279,7 @@ func _physics_process(delta : float):
 				state = State.STATE_WALKING
 				return
 	move_effect()
+
 
 func _get_surface_texture() -> Dictionary:
 	if _surface_detector.get_collider():
