@@ -2,7 +2,7 @@ extends Node
 
 
 onready var file1 = 'res://resources/list1.txt' # text files on 'resources' folder
-onready var file2 = 'res://resources/list2.txt' # creepier list for Acts 3+
+onready var file2 = 'res://resources/list2.txt' # creepier list for Acts 3 to first half of 5
 
 var list1 : PoolStringArray
 var list2 : PoolStringArray
