@@ -7,21 +7,18 @@ var _settings : SettingsClass
 func attach_settings(value : SettingsClass):
 	_settings = value
 	generate_settings()
-	pass
 
 
 func generate_settings():
 	add_generation_settings()
 	add_equipment()
 	add_tiny_items()
-	pass
 
 
 func add_generation_settings():
 	_settings.add_int_setting("World Seed", -55555, 55555, 1, 0)
 	_settings.set_setting_group("World Seed", "Generation Settings")
 	_settings.set_setting_meta("World Seed", _settings._CAN_RANDOMIZE_FLAG, true)
-	pass
 
 
 func add_equipment():
@@ -45,9 +42,8 @@ func add_equipment():
 			continue
 		else:
 			if full_path.ends_with(".tscn") and not full_path.get_file().begins_with("_"):
-				_settings.add_int_setting(full_path, 0, 999, 1, 0)
+				_settings.add_int_setting(full_path, 0, 999, 1, randi() % 2)
 				_settings.set_setting_group(full_path, "Equipment")
-	pass
 
 
 func add_tiny_items():

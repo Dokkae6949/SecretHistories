@@ -41,7 +41,7 @@ export var enemy_scene : PackedScene
 #
 export(Array, Dictionary) var enemy_loadout : Array
 export var density = 0.05
-export var max_count = 10
+export var max_count = 5
 onready var enemies_root = Node.new()
 
 var data : WorldData
