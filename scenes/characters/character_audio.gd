@@ -34,6 +34,8 @@ onready var speech_audio = $Speech
 onready var manipulation_audio = $Manipulation
 onready var movement_audio = $Movement
 
+onready var last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
+
 
 func _ready():
 	choose_voice()
@@ -127,51 +129,74 @@ func choose_voice():
 
 
 func play_idle_sound():
-#	print("play idle speech")
 	_idle_sounds.shuffle()
 	speech_audio.stream = _idle_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
 func play_alert_sound():
 	_alert_sounds.shuffle()
 	speech_audio.stream = _alert_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
 func play_detection_sound():
 	_detection_sounds.shuffle()
 	speech_audio.stream = _detection_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
 func play_ambush_sound():
 	_ambush_sounds.shuffle()
 	speech_audio.stream = _ambush_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
 func play_chase_sound():
 	_chase_sounds.shuffle()
 	speech_audio.stream = _chase_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
 func play_fight_sound():
 	_fight_sounds.shuffle()
 	speech_audio.stream = _fight_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
 func play_reload_sound():
 	_reload_sounds.shuffle()
 	speech_audio.stream = _reload_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
 func play_flee_sound():
 	_flee_sounds.shuffle()
 	speech_audio.stream = _flee_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
@@ -179,6 +204,9 @@ func play_flee_sound():
 func play_dialog_q_sound():
 	_dialog_q_sounds.shuffle()
 	speech_audio.stream = _dialog_q_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
@@ -186,6 +214,9 @@ func play_dialog_q_sound():
 func play_dialog_a_sound():
 	_dialog_a_sounds.shuffle()
 	speech_audio.stream = _dialog_a_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
@@ -193,30 +224,45 @@ func play_dialog_a_sound():
 func play_dialog_sequence_sound():
 	_dialog_sequence_sounds.shuffle()
 	speech_audio.stream = _dialog_sequence_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
 func play_surprised_sound():
 	_surprised_sounds.shuffle()
 	speech_audio.stream = _surprised_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
 func play_fire_sound():
 	_fire_sounds.shuffle()
 	speech_audio.stream = _fire_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
 func play_snake_sound():
 	_snake_sounds.shuffle()
 	speech_audio.stream = _snake_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
 func play_bomb_sound():
 	_bomb_sounds.shuffle()
 	speech_audio.stream = _bomb_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return # instead of playing
+	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
 
 
