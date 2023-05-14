@@ -39,9 +39,6 @@ onready var last_speech_line = speech_audio.stream # tracked to avoid repeating 
 
 func _ready():
 	choose_voice()
-	
-	# this is a test, normally needs to come from like BT_wait_random or something
-	$"../PlayerController".connect("speak_idle", self, "play_idle_sound")
 
 
 func load_sounds(sound_dir, type : int) -> void:
@@ -135,6 +132,7 @@ func play_idle_sound():
 		return # instead of playing
 	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
 	speech_audio.play()
+	print("played idle sound")
 
 
 func play_alert_sound():
@@ -294,3 +292,7 @@ func play_clamber_sound(clamber_in : bool) -> void:
 				_clamber_sounds["out"].shuffle()
 				movement_audio.stream = _clamber_sounds["out"].front()
 				movement_audio.play()
+
+
+func _on_BT_Wait_Random_speak_idle():
+	play_idle_sound()
