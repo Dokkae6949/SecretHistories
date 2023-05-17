@@ -356,6 +356,7 @@ func _crouch() -> void:
 
 		if Input.is_action_just_pressed("crouch"):
 			owner.do_crouch = !owner.do_crouch
+			print(owner.do_crouch)
 			if owner.do_crouch:
 				owner.state = owner.State.STATE_CROUCHING
 

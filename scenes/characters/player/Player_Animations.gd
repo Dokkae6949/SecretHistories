@@ -1,7 +1,8 @@
 extends Node
 
 
-#Different hold states depending on the item equipped
+# Different hold states depending on the item equipped
+# BE AWARE THIS LIST IS DIFFERENT THAN THE ONE IN CHARACTER.GD...for some reason
 enum hold_states {
 	SMALL_GUN_ITEM,
 	LARGE_GUN_ITEM,
@@ -35,7 +36,6 @@ func check_current_item_animation():
 		var off_hand_object = inventory.current_offhand_slot
 
 		if inventory.hotbar[main_hand_object] is GunItem or inventory.hotbar[off_hand_object] is GunItem :
-			
 			if inventory.hotbar[main_hand_object].item_size == 0:
 				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
 			else:

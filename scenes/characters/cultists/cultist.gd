@@ -21,7 +21,6 @@ var ammo_resource = preload("res://resources/tiny_items/ammunition/shotgun_shell
 
 
 func _ready():
-	._ready()
 	print("Cultist ready function:")
 	inventory.add_item(weapon_resource.instance())
 	print("cultist.gd added shotgun")

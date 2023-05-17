@@ -219,8 +219,12 @@ func _ready():
 #	active_mode.set_deferred("is_active", true)
 
 
+func _process(delta) -> void:
+	check_state_animation(delta)   # moved this here from physics_process to try to fix cultist rifle no walk
+
+
 func _physics_process(delta : float):
-	check_state_animation(delta)
+#	check_state_animation(delta)
 	check_current_item_animation()
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
@@ -265,6 +269,7 @@ func _physics_process(delta : float):
 					return
 	
 			is_crouching = true
+			print(self, " is crouching.")
 			_crouch(delta)
 			_walk(delta, 0.65)
 	
@@ -291,7 +296,7 @@ func _physics_process(delta : float):
 					clamberable_obj.mode = 0
 
 				if is_crouching:
-					state = State.STATE_CROUCHING
+#					state = State.STATE_CROUCHING
 					return
 				state = State.STATE_WALKING
 				return
@@ -480,80 +485,88 @@ func _crouch(delta : float) -> void:
 			return
 
 
+# This affects a lot including whether character walks or floats - current only walks correctly when nothing equipped.
 func check_state_animation(delta):
 	var forwards_velocity
 	var sideways_velocity
-	#if the character is moving sets the velocity to it's movement blendspace2D to create a strafing effect
+	# If the character is moving sets the velocity to it's movement blendspace2D to create a strafing effect
 	
 	forwards_velocity = -global_transform.basis.z.dot(velocity)
 	sideways_velocity = global_transform.basis.x.dot(velocity)
 	
 	# This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
-	if self.name == "Cultist":
+	# Something in here is working for walking with nothing equipped and broken for when longgun equipped
+#	if self.name == "Cultist":
+	if self:
+		print(current_mainhand_item_animation)
 		if current_mainhand_item_animation == hold_states.MELEE_ITEM:
-			
+			print("Cultist is unequipped or melee")
+
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",4)
-				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
+				print("Cultist is standing, hands empty.")
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",0)
-				
+
 			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",4)
-				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
+				print("Cultist is walking, hands empty.")
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",1)
 				animation_tree.set("parameters/walk_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
-				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",5)
 				animation_tree.set("parameters/crouch_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
-				
+
 			elif not move_dir == Vector3.ZERO and do_sprint == true:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",2)
-				
+
 		elif current_mainhand_item_animation == hold_states.SMALL_GUN_ITEM:
+			print("This state should not be reached (small gun)")
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",4)
-				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",0)
-				
+
 			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",4)
-				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",1)
 				animation_tree.set("parameters/Pistol_strafe/blend_amount",1)
 				animation_tree.set("parameters/Pistol_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
-				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",3)
 				animation_tree.set("parameters/Pistol_crouch_strafe/blend_amount",1)
 				animation_tree.set("parameters/Pistol_crouch_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
-				
+
 			elif not move_dir == Vector3.ZERO and do_sprint == true:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
@@ -561,122 +574,137 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Small_guns_transitions/current",2)
 				animation_tree.set("parameters/small_gun_run_blend/blend_amount",1)
 
-		elif current_mainhand_item_animation == hold_states.LARGE_GUN_ITEM:
+		elif current_mainhand_item_animation == hold_states.SMALL_GUN_ADS:
+			print("This state should not be reached (small gun ADS)")
 			
 			if state == State.STATE_CROUCHING:
+				animation_tree.set("parameters/Equipped_state/current",0)
+				animation_tree.set("parameters/ADS_State/current",1)
+				animation_tree.set("parameters/ADS_Pistol_state/current",4)
+
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
+				animation_tree.set("parameters/Equipped_state/current",0)
+				animation_tree.set("parameters/ADS_State/current",1)
+				animation_tree.set("parameters/ADS_Pistol_state/current",0)
+
+			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
+				animation_tree.set("parameters/Equipped_state/current",0)
+				animation_tree.set("parameters/ADS_State/current",1)
+				animation_tree.set("parameters/ADS_Pistol_state/current",4)
+
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
+				animation_tree.set("parameters/Equipped_state/current",0)
+				animation_tree.set("parameters/ADS_State/current",1)
+				animation_tree.set("parameters/ADS_Pistol_state/current",1)
+				animation_tree.set("parameters/One_Handed_ADS_Strafe/blend_amount",1)
+				animation_tree.set("parameters/One_Handed_ADS_Strafe_Vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
+
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+				animation_tree.set("parameters/Equipped_state/current",0)
+				animation_tree.set("parameters/ADS_State/current",1)
+				animation_tree.set("parameters/ADS_Pistol_state/current",3)
+				animation_tree.set("parameters/One_Handed_ADS_Crouch/blend_amount", 1)
+				animation_tree.set("parameters/One_Handed_ADS_Crouch_Vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
+
+			elif not move_dir == Vector3.ZERO and do_sprint == true:
+				animation_tree.set("parameters/Equipped_state/current",0)
+				animation_tree.set("parameters/ADS_State/current",1)
+				animation_tree.set("parameters/ADS_Pistol_state/current",2)
+				animation_tree.set("parameters/One_Handed_ADS_Run/blend_amount",1)
+
+		elif current_mainhand_item_animation == hold_states.LARGE_GUN_ITEM:
+
+			if state == State.STATE_CROUCHING:
+				print("Cultist crouching")
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",4)
-				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
+				print("Cultist standing with longgun")
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",0)
-				
-			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
+
+			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING:
+				print("Cultist crouching and not moving")
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",4)
-				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+
+			# This is the state when the cultist is walking towards you with a shotgun out
+			if not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:   # was elif
+				print("Cultist walking with longgun")
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",1)
+				# not hooked up by Ayo
 				animation_tree.set("parameters/Rifle_Strafe/blend_amount",1)
+				# not hooked up by Ayo
 				animation_tree.set("parameters/Rifle_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
-				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+#				animation_tree.set("parameters/Normal_state/current",1)
+#				animation_tree.set("parameters/walk_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
+
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+				print("Cultist is crouch-walking")
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",3)
 				animation_tree.set("parameters/Rifle_crouch/blend_amount",1)
 				animation_tree.set("parameters/Crouch_Rifle_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
-				
+
 			elif not move_dir == Vector3.ZERO and do_sprint == true:
+				print("Cultist is sprinting...that's weird")
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",2)
 				animation_tree.set("parameters/Rifle_gun_run_blend/blend_amount",1)
-				
+
 		elif current_mainhand_item_animation == hold_states.LARGE_GUNS_ADS:
-			
+			print("This state should not be reached (longgun ADS)")
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",4)
-				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",0)
-				
+
 			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",4)
-				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",1)
 				animation_tree.set("parameters/Rifle_ADS_strafe/blend_amount",1)
 				animation_tree.set("parameters/Rifle_ADS_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
-				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",3)
 				animation_tree.set("parameters/Rifle_ADS_crouch/blend_amount", 1)
 				animation_tree.set("parameters/Rifle_ADS_crouch_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
-				
+
 			elif not move_dir == Vector3.ZERO and do_sprint == true:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",2)
 				animation_tree.set("parameters/ADS_Rifle_Run/blend_amount",1)
-				
-		elif current_mainhand_item_animation == hold_states.SMALL_GUN_ADS:
-			
-			if state == State.STATE_CROUCHING:
-				animation_tree.set("parameters/Equipped_state/current",0)
-				animation_tree.set("parameters/ADS_State/current",1)
-				animation_tree.set("parameters/ADS_Pistol_state/current",4)
-				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
-				animation_tree.set("parameters/Equipped_state/current",0)
-				animation_tree.set("parameters/ADS_State/current",1)
-				animation_tree.set("parameters/ADS_Pistol_state/current",0)
-				
-			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
-				animation_tree.set("parameters/Equipped_state/current",0)
-				animation_tree.set("parameters/ADS_State/current",1)
-				animation_tree.set("parameters/ADS_Pistol_state/current",4)
-				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
-				animation_tree.set("parameters/Equipped_state/current",0)
-				animation_tree.set("parameters/ADS_State/current",1)
-				animation_tree.set("parameters/ADS_Pistol_state/current",1)
-				animation_tree.set("parameters/One_Handed_ADS_Strafe/blend_amount",1)
-				animation_tree.set("parameters/One_Handed_ADS_Strafe_Vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
-				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
-				animation_tree.set("parameters/Equipped_state/current",0)
-				animation_tree.set("parameters/ADS_State/current",1)
-				animation_tree.set("parameters/ADS_Pistol_state/current",3)
-				animation_tree.set("parameters/One_Handed_ADS_Crouch/blend_amount", 1)
-				animation_tree.set("parameters/One_Handed_ADS_Crouch_Vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
-				
-			elif not move_dir == Vector3.ZERO and do_sprint == true:
-				animation_tree.set("parameters/Equipped_state/current",0)
-				animation_tree.set("parameters/ADS_State/current",1)
-				animation_tree.set("parameters/ADS_Pistol_state/current",2)
-				animation_tree.set("parameters/One_Handed_ADS_Run/blend_amount",1)
+		
+		else:
+			print("This state shouldn't be reached.")
 
 #checks if the character is on the ground if not plays the falling animation
 	if !grounded and !_ground_checker.is_colliding():
@@ -693,7 +721,8 @@ func check_current_item_animation():
 		if inventory.hotbar[main_hand_object] is GunItem or inventory.hotbar[off_hand_object] is GunItem :
 			if inventory.hotbar[main_hand_object].item_size == 0:
 				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
-			else:
+			else:   # bugs?
+				print("Setting LARGE_GUN in check_current_item_animations")
 				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
 #		elif inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
 #			print("Carried Lantern")
@@ -732,8 +761,9 @@ func speak():
 func _on_Inventory_mainhand_slot_changed(previous, current):
 	# Checks if there is something currently equipped, else does nothing
 	if inventory.hotbar[current] != null :
+		# maybe put logic to set current_mainhand_item_animation here?
 		pass
 	else:
 		print("_on_Inventory_mainhand_slot_changed() reached in character.gd")
 		current_mainhand_item_animation = hold_states.MELEE_ITEM
-		mainhand_animation = Animation_state.NOT_EQUIPPED
+		mainhand_animation = Animation_state.NOT_EQUIPPED  # this may not be necessary
